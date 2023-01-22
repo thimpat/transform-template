@@ -1,0 +1,45 @@
+{
+  "name": "transform-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./esm/index.mjs",
+  "bin": {
+    "transform-template": "cli.cjs"
+  },
+  "scripts": {
+    "test": "npm run build:all && npm run test:js && npm run test:ts",
+    "build:esm": "to-esm ./cjs/index.cjs --output ./esm --update-all --extension .mjs",
+    "build:dts": "tsc ./esm/index.mjs --declaration --allowJs --emitDeclarationOnly --outDir .",
+    "build:test": "to-esm test/*.specs.cjs --output ./test/ --target esm --skipEsmResolution --skipLinks",
+    "build:all": "npm run build:esm && npm run build:dts && npm run build:test",
+    "test:ts": "nyc mocha --config test/config/.mocharc.json",
+    "test:js": "nyc mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@thimpat/libutils": "^1.16.0",
+    "analogger": "^1.22.1",
+    "glob": "^8.1.0",
+    "minimist": "^1.2.7"
+  },
+  "exports": {
+    "require": "./cjs/index.cjs",
+    "import": "./esm/index.mjs"
+  },
+  "typings": "./index.d.mts",
+  "type": "module",
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "chai-fs": "^2.0.0",
+    "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
+    "shelljs": "^0.8.5",
+    "to-esm": "^2.27.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
