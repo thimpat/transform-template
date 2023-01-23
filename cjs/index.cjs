@@ -87,6 +87,7 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
             }
         }
 
+        let targetFiles = null;
         let templatesDir = "";
         if (isDirectory(fileOrDir))
         {
@@ -97,18 +98,18 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
         }
         else
         {
-            fileOrDir = resolvePath(fileOrDir);
             let parsed;
+            fileOrDir = resolvePath(fileOrDir);
+            parsed = path.parse(fileOrDir);
+            files = [parsed.base];
+            templatesDir = resolvePath(parsed.dir);
+
             if (outputFile)
             {
                 parsed = path.parse(outputFile);
+                targetFiles = [parsed.base];
+                outputDir = parsed.dir;
             }
-            else
-            {
-                parsed = path.parse(fileOrDir);
-            }
-            templatesDir = normalisePath(parsed.dir);
-            files = [parsed.base];
         }
 
         outputDir = normalisePath(outputDir);
@@ -117,7 +118,16 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
         for (let i = 0; i < files.length; ++i)
         {
             const originalFile = joinPath(templatesDir, files[i]);
-            const targetFile = joinPath(outputDir, files[i]);
+
+            let targetFile;
+            if (targetFiles)
+            {
+                targetFile = joinPath(outputDir, targetFiles[i]);
+            }
+            else
+            {
+                targetFile = joinPath(outputDir, files[i]);
+            }
 
             if (isDirectory(originalFile))
             {
