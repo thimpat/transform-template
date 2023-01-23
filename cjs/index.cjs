@@ -56,6 +56,7 @@ const transformTemplateString = function (initialContent, data, {
 const transformTemplateFiles = function (fileOrDir, data = {}, {
     datafile = "",
     outputDir = "./out",
+    outputFile = "",
     mask = "**/*",
     start = "##",
     end = "##",
@@ -97,7 +98,15 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
         else
         {
             fileOrDir = resolvePath(fileOrDir);
-            const parsed = path.parse(fileOrDir);
+            let parsed;
+            if (outputFile)
+            {
+                parsed = path.parse(outputFile);
+            }
+            else
+            {
+                parsed = path.parse(fileOrDir);
+            }
             templatesDir = normalisePath(parsed.dir);
             files = [parsed.base];
         }
