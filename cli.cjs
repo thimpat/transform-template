@@ -8,8 +8,8 @@ const init = function (argv)
     {
         setupConsole();
 
-        const {source, datafile, output, outputfile} = argv;
-        transformTemplateFiles(source, {}, {datafile, outputDir: output, outputFile: outputfile})
+        const {source, datafile, output, outputfile, force} = argv;
+        transformTemplateFiles(source, {}, {datafile, outputDir: output, outputFile: outputfile, force})
 
         return true;
     }

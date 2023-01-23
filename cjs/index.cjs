@@ -60,6 +60,7 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
     mask = "**/*",
     start = "##",
     end = "##",
+    force = true
 } = {})
 {
     try
@@ -144,7 +145,7 @@ const transformTemplateFiles = function (fileOrDir, data = {}, {
 
             if (initialContent === finalContent)
             {
-                if (!existsSync(targetFile))
+                if (!force && !existsSync(targetFile))
                 {
                     writeFileSync(targetFile, finalContent, {encoding: "utf8"});
                     console.log({lid: "TT5240", color: "green"}, `Generated: [${targetFile}]`);
