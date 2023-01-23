@@ -1,7 +1,7 @@
 {
   "name": "transform-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Template transformer",
   "main": "./esm/index.mjs",
   "bin": {
     "transform-template": "cli.cjs"
