@@ -24,10 +24,10 @@ const setupConsole = () =>
     return null;
 };
 
-const transformTemplateString = function (initialContent, data, {
+const transformTemplateString = function (initialContent, data = {}, {
     start = "##",
     end = "##",
-})
+} = {})
 {
     try
     {
